@@ -12,7 +12,7 @@ int main(void)
         char guess[100];
         printf("Enter your guess: ");
         scanf("%s", guess);
-
+        printf("The player has guessed %d times and has %d chances left.\n", i, 6-i);
         if (strlen(guess) != 5) {
             printf("That is not 5 characters, Matthew. Please learn to play the game correctly. \n");
             continue;
