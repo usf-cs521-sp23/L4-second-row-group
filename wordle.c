@@ -18,6 +18,7 @@ int main(void)
     char username[100];
     char words[MAX_WORDS][MAX_WORD_LENGTH];
     int num_words = 0;
+    char history[1000];
 
     fp = fopen("words.txt", "r");
     if (fp == NULL) {
@@ -66,24 +67,39 @@ int main(void)
             }
         }
 
-        printf("                    ");
+        printf("                  ");
 
+        char recordword[150];
+        strcpy(recordword, " ");
         for(int k = 0; k<5 ; k++ ){
-
             if(target[k] == guess[k]){
+                strcat(recordword, GREEN);
                 printf(GREEN"o"COLOR_NONE);
             }else if (strchr(target, guess[k]) != NULL) {
+                strcat(recordword, YELLOW);
                 printf(YELLOW"a"COLOR_NONE);
             }else{
+                strcat(recordword,  RED);
                 printf(RED"x"COLOR_NONE);
             }
-            
+            strncat(recordword, &guess[k], 1);
+            strcat(recordword, COLOR_NONE);
         }
+
+        char *lastinfo = (char *) malloc(strlen(history) + strlen(recordword) + 1);
+        sprintf(lastinfo, "%s%s", history, recordword);
+        // char *lastinfo = (char *) malloc(strlen(history) + strlen(guess) + 1);
+        // sprintf(lastinfo, "%s%s ", history, guess);
+        strcpy(history, lastinfo);
+        printf("\nHistory of guessed words: %s\n", history);
 
         puts(""); 
           
         if (strncmp(target, guess, 5) == 0) {
             printf(" YOU WINNNNNNNNNNNNN!!!\n");
+            break;
+        }else if(i == 5){
+            printf(" YOU are terrible Player in this try.\n");
             break;
         }
     }
