@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#define COLOR_NONE "\033[0m"
+#define RED "\033[1;31;40m" 
+#define GREEN "\033[1;32;40m"
+#define YELLOW "\033[1;33;40m"
 
 int main(void)
 {
@@ -16,11 +20,11 @@ int main(void)
         printf("                  ");
         for(int j = 0; j<5 ; ++j){
             if(target[j] == guess[j]){
-                printf("o");
+                printf(GREEN"o"COLOR_NONE);
             }else if (strchr(target, guess[j]) != NULL) {
-                printf("a");
+                printf(YELLOW"a"COLOR_NONE);
             }else{
-                printf("x");
+                printf(RED"x"COLOR_NONE);
             }
         }
 
