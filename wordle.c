@@ -45,14 +45,16 @@ int main(void)
     scanf("%s", username); //save the username 
 
     for(int i = 0; i < 6; ++i){
-        char guess[100];
+        char guess[1000];
         printf("Enter your guess: ");
         scanf("%s", guess);
         printf("The player has guessed %d times and has %d chances left.\n", i+1, 5-i);
+
         if (strlen(guess) != 5) {
             printf("That is not 5 characters. Please learn to play the game correctly. \n");
             continue;
         }
+
         for(int j = 0; j < 5; j++){
             if (isalpha(guess[j]) == 0){
                 printf("The guess you entered contains non-letter character. \n");
@@ -63,22 +65,26 @@ int main(void)
                 continue;
             }
         }
-    }
-        printf("                  ");
-        for(int j = 0; j<5 ; ++j){
-            if(target[j] == guess[j]){
+
+        printf("                    ");
+
+        for(int k = 0; k<5 ; k++ ){
+
+            if(target[k] == guess[k]){
                 printf(GREEN"o"COLOR_NONE);
-            }else if (strchr(target, guess[j]) != NULL) {
+            }else if (strchr(target, guess[k]) != NULL) {
                 printf(YELLOW"a"COLOR_NONE);
             }else{
                 printf(RED"x"COLOR_NONE);
             }
+            
         }
 
         puts(""); 
           
         if (strncmp(target, guess, 5) == 0) {
-            printf(" YOU WINNNNNNNNNNNNN!!!");
+            printf(" YOU WINNNNNNNNNNNNN!!!\n");
             break;
         }
+    }
 }
