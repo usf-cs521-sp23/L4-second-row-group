@@ -6,7 +6,7 @@ See here: https://www.cs.usfca.edu/~mmalensek/cs521/assignments/wordle.html
 
 - [ ] 1. Find out who is playing the game
 - [ ] 2. Open a text file with words to use (maybe in /usr/share/dict ?)
-    	* Make a word list from those words (only 5 letters, no special chars)
+	* Make a word list from those words (only 5 letters, no special chars)
 - [ ] 3. Pick one word randomly
 - [ ] 4. Read guesses on standard input (stdin) – but only give them 6 chances
 	* Check if it’s actually a valid word, no uppercase, punctuation
