@@ -8,38 +8,77 @@
 #define RED "\033[1;31;40m" 
 #define GREEN "\033[1;32;40m"
 #define YELLOW "\033[1;33;40m"
-#define MAX_WORDS 10000
+//#define MAX_WORDS 10000
 #define MAX_WORD_LENGTH 50
+int game(void);
 
 int main(void)
 {
+    if(game() == 1) {
+        return 1;
+    }
+    printf("Play again? yes/no");
+    char answer[200];
+    scanf("%s", answer);
+    if(strncmp(answer,"yes", 4) == 0) {
+        return game();
+    }
+    else{
+        printf("See you next time!");
+    }
+
+    
+}
+
+int game(void){
     FILE *fp;
     char buff[255];
     char username[100];
-    char words[MAX_WORDS][MAX_WORD_LENGTH];
+    int MAX_WORDS = 10000;
+    //char words[MAX_WORDS][MAX_WORD_LENGTH];
     int num_words = 0;
     char history[1000];
 
-    fp = fopen("words.txt", "r");
+    fp = fopen("/usr/share/dict/words", "r");
     if (fp == NULL) {
         printf("Can't open the file\n");
         return 1;
     }
-
+    char (*words)[MAX_WORD_LENGTH] = malloc(MAX_WORDS * sizeof(*words));
+    if (words == NULL) {
+            printf("Failed to allocate memory\n");
+            return 1;
+        }
     while(fgets(buff, 255, (FILE*)fp)!=NULL){
         if (num_words >= MAX_WORDS) {
-            printf("Too many words in file\n");
-            break;
+            int new_max_words = MAX_WORDS * 2;
+            char (*new_words)[MAX_WORD_LENGTH] = realloc(words, new_max_words * sizeof(*new_words));
+            if (new_words == NULL) {
+                printf("Failed to reallocate memory\n");
+                free(words); // Free the original array before exiting
+                return 1;
+            }
+            words = new_words;
+
         }
-        strncpy(words[num_words], buff, MAX_WORD_LENGTH);
-        num_words++;
+        
+        if(strlen(buff) == 6 && strstr(buff,"'") == 0) {
+            for(int i = 0; i < strlen(buff); i++) {
+                buff[i] = tolower(buff[i]);
+            }
+            strncpy(words[num_words], buff, MAX_WORD_LENGTH);
+            num_words++;
+            
+        }
+     
     }
+    
 
     fclose(fp);
 
     srand(time(NULL));
     int random_index = rand() % num_words;
-    // printf("Random word: %s\n", words[random_index]);
+     printf("Random word: %s\n", words[random_index]);
     char *target = words[random_index];  //generate a random word
 
     printf("Please enter your name: ");
@@ -96,11 +135,13 @@ int main(void)
         puts(""); 
           
         if (strncmp(target, guess, 5) == 0) {
-            printf(" YOU WINNNNNNNNNNNNN!!!\n");
+            printf(" YOU WINNNNNNNNNNNNN!!! We love Matthew\n");
             break;
         }else if(i == 5){
-            printf(" YOU are terrible Player in this try.\n");
+            printf(" You are terrible Player in this try.\n");
             break;
         }
     }
+    free(words);
+    return 0;
 }
