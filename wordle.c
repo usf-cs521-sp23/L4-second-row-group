@@ -78,7 +78,7 @@ int game(void){
 
     srand(time(NULL));
     int random_index = rand() % num_words;
-     printf("Random word: %s\n", words[random_index]);
+    // printf("Random word: %s\n", words[random_index]);
     char *target = words[random_index];  //generate a random word
 
     printf("Please enter your name: ");
