@@ -5,9 +5,9 @@
 #include <time.h>
 
 #define COLOR_NONE "\033[0m"
-#define RED "\033[1;31;40m" 
-#define GREEN "\033[1;32;40m"
-#define YELLOW "\033[1;33;40m"
+#define RED "\033[1;31m" 
+#define GREEN "\033[1;32m"
+#define YELLOW "\033[1;33m"
 //#define MAX_WORDS 10000
 #define MAX_WORD_LENGTH 50
 int game(void);
@@ -125,7 +125,7 @@ int game(void){
             strcat(recordword, COLOR_NONE);
         }
 
-        char *lastinfo = (char *) malloc(strlen(history) + strlen(recordword) + 1);
+        char *lastinfo = (char *) malloc(strlen(history) + strlen(recordword));
         sprintf(lastinfo, "%s%s", history, recordword);
         // char *lastinfo = (char *) malloc(strlen(history) + strlen(guess) + 1);
         // sprintf(lastinfo, "%s%s ", history, guess);
