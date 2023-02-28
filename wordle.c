@@ -17,14 +17,14 @@ int main(void)
     if(game() == 1) {
         return 1;
     }
-    printf("Play again? yes/no");
+    printf("Play again? yes/no\n");
     char answer[200];
     scanf("%s", answer);
     if(strncmp(answer,"yes", 4) == 0) {
         return game();
     }
     else{
-        printf("See you next time!");
+        printf("See you next time!\n");
     }
 
     
@@ -79,16 +79,18 @@ int game(void){
     srand(time(NULL));
     int random_index = rand() % num_words;
     // printf("Random word: %s\n", words[random_index]);
-    char *target = words[random_index];  //generate a random word
+    char *target = words[random_index];  
 
+    
     printf("Please enter your name: ");
-    scanf("%s", username); //save the username 
+    scanf("%s", username);  
+    printf("Rules: You need to guess a 5-letter uppercase words. You have 6 chances.\n");
 
     for(int i = 0; i < 6; ++i){
         char guess[1000];
         printf("Enter your guess: ");
         scanf("%s", guess);
-        printf("The player has guessed %d times and has %d chances left.\n", i+1, 5-i);
+        printf("You has guessed %d times and has %d chances left.\n", i+1, 5-i);
 
         if (strlen(guess) != 5) {
             printf("That is not 5 characters. Please learn to play the game correctly. \n");
@@ -135,10 +137,10 @@ int game(void){
         puts(""); 
           
         if (strncmp(target, guess, 5) == 0) {
-            printf(" YOU WINNNNNNNNNNNNN!!! We love Matthew\n");
+            printf(" Congratulations, %s. YOU WINNNNNNNNNNNNN!!! We love Matthew\n", username);
             break;
         }else if(i == 5){
-            printf(" You are terrible Player in this try.\n");
+            printf("%s, you are terrible player in this try. Good luck!\n", username);
             break;
         }
     }
